@@ -10,9 +10,11 @@ import android.view.LayoutInflater
 import android.widget.TextView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.surajrathod.daggerexample.Constants
+import com.surajrathod.daggerexample.MyApplication
 import com.surajrathod.daggerexample.R
 import com.surajrathod.daggerexample.networking.StackoverflowApi
 import com.surajrathod.daggerexample.questions.FetchQuestionsDetailsUseCase
+import com.surajrathod.daggerexample.screens.common.ScreensNavigator
 import com.surajrathod.daggerexample.screens.common.dialogs.DialogsNavigator
 import com.surajrathod.daggerexample.screens.common.dialogs.ServerErrorDialogFragment
 import com.surajrathod.daggerexample.screens.common.toolbar.MyToolbar
@@ -25,7 +27,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import kotlin.coroutines.cancellation.CancellationException
 
-class QuestionDetailsActivity : AppCompatActivity() , QuestionDetailsViewMvc.Listener{
+class QuestionDetailsActivity : AppCompatActivity(), QuestionDetailsViewMvc.Listener {
 
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
 
@@ -37,18 +39,21 @@ class QuestionDetailsActivity : AppCompatActivity() , QuestionDetailsViewMvc.Lis
 
     lateinit var fetchQuestionsDetailsUseCase: FetchQuestionsDetailsUseCase
     lateinit var dialogsNavigator: DialogsNavigator
+    lateinit var screensNavigator: ScreensNavigator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewMvc = QuestionDetailsViewMvc(layoutInflater,null)
+        viewMvc = QuestionDetailsViewMvc(layoutInflater, null)
         setContentView(viewMvc.rootView)
 
         // retrieve question ID passed from outside
         questionId = intent.extras!!.getString(EXTRA_QUESTION_ID)!!
 
-        fetchQuestionsDetailsUseCase = FetchQuestionsDetailsUseCase()
+        fetchQuestionsDetailsUseCase =
+            FetchQuestionsDetailsUseCase((application as MyApplication).retrofit)
         dialogsNavigator = DialogsNavigator(supportFragmentManager)
+        screensNavigator = ScreensNavigator(this)
     }
 
     override fun onStart() {
@@ -68,11 +73,12 @@ class QuestionDetailsActivity : AppCompatActivity() , QuestionDetailsViewMvc.Lis
             viewMvc.showProgressIndication()
             try {
                 val result = fetchQuestionsDetailsUseCase.fetchQuestionsDetails(questionId)
-                when(result){
-                    is FetchQuestionsDetailsUseCase.Result.Success->{
+                when (result) {
+                    is FetchQuestionsDetailsUseCase.Result.Success -> {
                         viewMvc.bindQuestionBody(result.questionBody)
                     }
-                    is FetchQuestionsDetailsUseCase.Result.Failure->{
+
+                    is FetchQuestionsDetailsUseCase.Result.Failure -> {
                         onFetchFailed()
                     }
                 }
@@ -87,7 +93,6 @@ class QuestionDetailsActivity : AppCompatActivity() , QuestionDetailsViewMvc.Lis
     }
 
 
-
     companion object {
         const val EXTRA_QUESTION_ID = "EXTRA_QUESTION_ID"
         fun start(context: Context, questionId: String) {
@@ -98,6 +103,6 @@ class QuestionDetailsActivity : AppCompatActivity() , QuestionDetailsViewMvc.Lis
     }
 
     override fun onBackClicked() {
-        onBackPressed()
+        screensNavigator.navigateBack()
     }
 }

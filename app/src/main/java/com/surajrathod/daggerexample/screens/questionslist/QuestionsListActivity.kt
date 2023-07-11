@@ -4,9 +4,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import com.surajrathod.daggerexample.Constants
+import com.surajrathod.daggerexample.MyApplication
 import com.surajrathod.daggerexample.networking.StackoverflowApi
 import com.surajrathod.daggerexample.questions.FetchQuestionsUseCase
 import com.surajrathod.daggerexample.questions.Question
+import com.surajrathod.daggerexample.screens.common.ScreensNavigator
 import com.surajrathod.daggerexample.screens.common.dialogs.DialogsNavigator
 import com.surajrathod.daggerexample.screens.common.dialogs.ServerErrorDialogFragment
 import com.surajrathod.daggerexample.screens.common.toolbar.MyToolbar
@@ -20,30 +22,32 @@ import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class QuestionsListActivity : AppCompatActivity() ,QuestionsListMvc.Listener {
+class QuestionsListActivity : AppCompatActivity(), QuestionsListMvc.Listener {
 
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
 
 
-    private lateinit var toolbar : MyToolbar
+    private lateinit var toolbar: MyToolbar
     private var isDataLoaded = false
 
-    private lateinit var viewMvc : QuestionsListMvc
+    private lateinit var viewMvc: QuestionsListMvc
 
     private lateinit var fetchQuestionsUseCase: FetchQuestionsUseCase
     lateinit var dialogsNavigator: DialogsNavigator
+    lateinit var screensNavigator: ScreensNavigator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
 
-        viewMvc = QuestionsListMvc(LayoutInflater.from(this),null)
+        viewMvc = QuestionsListMvc(LayoutInflater.from(this), null)
 
 
         setContentView(viewMvc.rootView)
 
-        fetchQuestionsUseCase = FetchQuestionsUseCase()
+        fetchQuestionsUseCase = FetchQuestionsUseCase((application as MyApplication).retrofit)
         dialogsNavigator = DialogsNavigator(supportFragmentManager)
+        screensNavigator = ScreensNavigator(this)
     }
 
     override fun onStart() {
@@ -75,10 +79,9 @@ class QuestionsListActivity : AppCompatActivity() ,QuestionsListMvc.Listener {
                         onFetchFailed()
                     }
                 }
-            }finally {
+            } finally {
                 viewMvc.hideProgressIndication()
             }
-
         }
     }
 
@@ -91,8 +94,7 @@ class QuestionsListActivity : AppCompatActivity() ,QuestionsListMvc.Listener {
     }
 
     override fun onQuestionClicked(clickedQuestion: Question) {
-        QuestionDetailsActivity.start(this,clickedQuestion.id)
+        screensNavigator.toQuestionDetails(clickedQuestion.id)
     }
-
 
 }
