@@ -9,6 +9,7 @@ import com.surajrathod.daggerexample.networking.StackoverflowApi
 import com.surajrathod.daggerexample.questions.FetchQuestionsUseCase
 import com.surajrathod.daggerexample.questions.Question
 import com.surajrathod.daggerexample.screens.common.ScreensNavigator
+import com.surajrathod.daggerexample.screens.common.activities.BaseActivity
 import com.surajrathod.daggerexample.screens.common.dialogs.DialogsNavigator
 import com.surajrathod.daggerexample.screens.common.dialogs.ServerErrorDialogFragment
 import com.surajrathod.daggerexample.screens.common.toolbar.MyToolbar
@@ -22,7 +23,7 @@ import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class QuestionsListActivity : AppCompatActivity(), QuestionsListMvc.Listener {
+class QuestionsListActivity : BaseActivity(), QuestionsListMvc.Listener {
 
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
 
@@ -44,7 +45,7 @@ class QuestionsListActivity : AppCompatActivity(), QuestionsListMvc.Listener {
 
         setContentView(viewMvc.rootView)
 
-        fetchQuestionsUseCase = (application as MyApplication).fetchQuestionsUseCase
+        fetchQuestionsUseCase = compositionRoot.fetchQuestionsUseCase
         dialogsNavigator = DialogsNavigator(supportFragmentManager)
         screensNavigator = ScreensNavigator(this)
     }
