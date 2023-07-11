@@ -9,7 +9,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class FetchQuestionsDetailsUseCase(
-    private val retrofit: Retrofit
+    private var stackoverflowApi: StackoverflowApi
 ) {
 
     sealed class Result {
@@ -17,8 +17,6 @@ class FetchQuestionsDetailsUseCase(
         object Failure : Result()
     }
 
-
-    private var stackoverflowApi: StackoverflowApi = retrofit.create(StackoverflowApi::class.java)
 
     suspend fun fetchQuestionsDetails(questionId: String): Result {
         return withContext(Dispatchers.IO) {
