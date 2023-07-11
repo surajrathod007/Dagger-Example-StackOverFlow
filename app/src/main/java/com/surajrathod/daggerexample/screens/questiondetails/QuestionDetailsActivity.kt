@@ -53,7 +53,7 @@ class QuestionDetailsActivity : BaseActivity(), QuestionDetailsViewMvc.Listener 
 
         fetchQuestionsDetailsUseCase = compositionRoot.fetchQuestionsDetailsUseCase
 
-        dialogsNavigator = DialogsNavigator(supportFragmentManager)
+        dialogsNavigator = compositionRoot.dialogsNavigator
         screensNavigator = compositionRoot.screensNavigator
     }
 
