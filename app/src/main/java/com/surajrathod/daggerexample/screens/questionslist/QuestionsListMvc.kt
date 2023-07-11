@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.annotation.IdRes
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -15,9 +14,11 @@ import com.surajrathod.daggerexample.screens.common.viewsMvc.BaseViewMvc
 
 
 class QuestionsListMvc(
-    private val layoutInflater: LayoutInflater,
-    private val parent: ViewGroup?
-) : BaseViewMvc<QuestionsListMvc.Listener>(){
+    layoutInflater: LayoutInflater,
+    parent: ViewGroup?
+) : BaseViewMvc<QuestionsListMvc.Listener>(layoutInflater,
+    parent,
+R.layout.layout_questions_list) {
 
     interface Listener {
         fun onRefreshClicked()
@@ -29,13 +30,11 @@ class QuestionsListMvc(
     private var recyclerView: RecyclerView
     private var questionsAdapter: QuestionsAdapter
 
-    val rootView: View = layoutInflater.inflate(R.layout.layout_questions_list, parent, false)
+    //val rootView: View = layoutInflater.inflate(R.layout.layout_questions_list, parent, false)
 
-    val context: Context get() = rootView.context
 
 
     init {
-
 
         // init pull-down-to-refresh
         swipeRefresh = findViewById(R.id.swipeRefresh)
@@ -59,11 +58,6 @@ class QuestionsListMvc(
 
 
     }
-
-    fun <T : View?> findViewById(@IdRes id: Int): T {
-        return rootView.findViewById<T>(id)
-    }
-
 
 
     fun showProgressIndication() {

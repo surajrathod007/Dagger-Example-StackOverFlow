@@ -16,7 +16,9 @@ import com.surajrathod.daggerexample.screens.common.viewsMvc.BaseViewMvc
 class QuestionDetailsViewMvc(
     private val layoutInflater: LayoutInflater,
     private val parent: ViewGroup?
-) : BaseViewMvc<QuestionDetailsViewMvc.Listener>() {
+) : BaseViewMvc<QuestionDetailsViewMvc.Listener>(layoutInflater,
+    parent,
+R.layout.layout_question_details) {
 
     interface Listener{
         fun onBackClicked()
@@ -26,8 +28,8 @@ class QuestionDetailsViewMvc(
     private var swipeRefresh: SwipeRefreshLayout
     private var txtQuestionBody: TextView
 
-    val rootView = layoutInflater.inflate(R.layout.layout_question_details, parent, false)
-    val context : Context get() = rootView.context
+    //val rootView = layoutInflater.inflate(R.layout.layout_question_details, parent, false)
+
 
 
     init {
@@ -49,9 +51,6 @@ class QuestionDetailsViewMvc(
 
     }
 
-    private fun <T : View?> findViewById(@IdRes id: Int): T {
-        return rootView.findViewById<T>(id)
-    }
 
     fun showProgressIndication() {
         swipeRefresh.isRefreshing = true
