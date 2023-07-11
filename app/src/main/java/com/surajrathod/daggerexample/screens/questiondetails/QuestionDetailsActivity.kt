@@ -13,6 +13,7 @@ import com.surajrathod.daggerexample.Constants
 import com.surajrathod.daggerexample.R
 import com.surajrathod.daggerexample.networking.StackoverflowApi
 import com.surajrathod.daggerexample.questions.FetchQuestionsDetailsUseCase
+import com.surajrathod.daggerexample.screens.common.dialogs.DialogsNavigator
 import com.surajrathod.daggerexample.screens.common.dialogs.ServerErrorDialogFragment
 import com.surajrathod.daggerexample.screens.common.toolbar.MyToolbar
 import kotlinx.coroutines.CoroutineScope
@@ -35,6 +36,7 @@ class QuestionDetailsActivity : AppCompatActivity() , QuestionDetailsViewMvc.Lis
     private lateinit var questionId: String
 
     lateinit var fetchQuestionsDetailsUseCase: FetchQuestionsDetailsUseCase
+    lateinit var dialogsNavigator: DialogsNavigator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +48,7 @@ class QuestionDetailsActivity : AppCompatActivity() , QuestionDetailsViewMvc.Lis
         questionId = intent.extras!!.getString(EXTRA_QUESTION_ID)!!
 
         fetchQuestionsDetailsUseCase = FetchQuestionsDetailsUseCase()
+        dialogsNavigator = DialogsNavigator(supportFragmentManager)
     }
 
     override fun onStart() {
@@ -76,14 +79,11 @@ class QuestionDetailsActivity : AppCompatActivity() , QuestionDetailsViewMvc.Lis
             } finally {
                 viewMvc.hideProgressIndication()
             }
-
         }
     }
 
     private fun onFetchFailed() {
-        supportFragmentManager.beginTransaction()
-            .add(ServerErrorDialogFragment.newInstance(), null)
-            .commitAllowingStateLoss()
+        dialogsNavigator.showServerErrorDialog()
     }
 
 
