@@ -3,16 +3,9 @@ package com.surajrathod.daggerexample.screens.questionslist
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.TextView
-import android.widget.Toolbar
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.surajrathod.daggerexample.Constants
-import com.surajrathod.daggerexample.R
 import com.surajrathod.daggerexample.networking.StackoverflowApi
+import com.surajrathod.daggerexample.questions.FetchQuestionsUseCase
 import com.surajrathod.daggerexample.questions.Question
 import com.surajrathod.daggerexample.screens.common.dialogs.ServerErrorDialogFragment
 import com.surajrathod.daggerexample.screens.common.toolbar.MyToolbar
@@ -31,12 +24,12 @@ class QuestionsListActivity : AppCompatActivity() ,QuestionsListMvc.Listener {
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
 
 
-    private lateinit var stackoverflowApi: StackoverflowApi
     private lateinit var toolbar : MyToolbar
-
     private var isDataLoaded = false
 
     private lateinit var viewMvc : QuestionsListMvc
+
+    private lateinit var fetchQuestionsUseCase: FetchQuestionsUseCase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,12 +40,7 @@ class QuestionsListActivity : AppCompatActivity() ,QuestionsListMvc.Listener {
 
         setContentView(viewMvc.rootView)
 
-        // init retrofit
-        val retrofit = Retrofit.Builder()
-            .baseUrl(Constants.BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-        stackoverflowApi = retrofit.create(StackoverflowApi::class.java)
+        fetchQuestionsUseCase = FetchQuestionsUseCase()
     }
 
     override fun onStart() {
@@ -73,21 +61,21 @@ class QuestionsListActivity : AppCompatActivity() ,QuestionsListMvc.Listener {
         coroutineScope.launch {
             viewMvc.showProgressIndication()
             try {
-                val response = stackoverflowApi.lastActiveQuestions(20)
-                if (response.isSuccessful && response.body() != null) {
-                    //questionsAdapter.bindData(response.body()!!.questions)
-                    viewMvc.bindQuestions(response.body()!!.questions)
-                    isDataLoaded = true
-                } else {
-                    onFetchFailed()
+                val result = fetchQuestionsUseCase.fetchQuestions()
+                when (result) {
+                    is FetchQuestionsUseCase.Result.Success -> {
+                        viewMvc.bindQuestions(result.questions)
+                        isDataLoaded = true
+                    }
+
+                    is FetchQuestionsUseCase.Result.Failure -> {
+                        onFetchFailed()
+                    }
                 }
-            } catch (t: Throwable) {
-                if (t !is CancellationException) {
-                    onFetchFailed()
-                }
-            } finally {
+            }finally {
                 viewMvc.hideProgressIndication()
             }
+
         }
     }
 
@@ -96,8 +84,6 @@ class QuestionsListActivity : AppCompatActivity() ,QuestionsListMvc.Listener {
             .add(ServerErrorDialogFragment.newInstance(), null)
             .commitAllowingStateLoss()
     }
-
-
 
     override fun onRefreshClicked() {
         fetchQuestions()
