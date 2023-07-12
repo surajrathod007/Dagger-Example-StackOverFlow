@@ -21,19 +21,13 @@ class ActivityCompositionRoot(
         ScreensNavigator(activity)
     }
 
-    private val layoutInflater get() = LayoutInflater.from(activity)
-
-    val viewMvcFactory get() = ViewMvcFactory(layoutInflater)
-    private val fragmentManager get() = activity.supportFragmentManager
+    val layoutInflater get() = LayoutInflater.from(activity)
 
 
-    val dialogsNavigator get() = DialogsNavigator(fragmentManager)
+    val fragmentManager get() = activity.supportFragmentManager
 
-    private val stackoverflowApi get() = appCompositionRoot.stackoverflowApi
-    val fetchQuestionsUseCase get() = FetchQuestionsUseCase(stackoverflowApi)
-    // get() means every time this property acceesd it will create new instance of fetchQuestionsUseCase
+    val stackoverflowApi get() = appCompositionRoot.stackoverflowApi
 
-    val fetchQuestionsDetailsUseCase get() = FetchQuestionsDetailsUseCase(stackoverflowApi)
 
 
 }
