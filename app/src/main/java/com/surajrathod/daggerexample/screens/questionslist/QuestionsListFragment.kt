@@ -10,6 +10,7 @@ import com.surajrathod.daggerexample.screens.common.ScreensNavigator
 import com.surajrathod.daggerexample.screens.common.dialogs.DialogsNavigator
 import com.surajrathod.daggerexample.screens.common.fragments.BaseFragment
 import com.surajrathod.daggerexample.screens.common.toolbar.MyToolbar
+import com.surajrathod.daggerexample.screens.common.viewsMvc.ViewMvcFactory
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -26,16 +27,15 @@ class QuestionsListFragment : BaseFragment() , QuestionsListMvc.Listener{
 
     private lateinit var viewMvc: QuestionsListMvc
 
-    private lateinit var fetchQuestionsUseCase: FetchQuestionsUseCase
+    lateinit var fetchQuestionsUseCase: FetchQuestionsUseCase
     lateinit var dialogsNavigator: DialogsNavigator
     lateinit var screensNavigator: ScreensNavigator
+    lateinit var viewMvcFactory: ViewMvcFactory
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        fetchQuestionsUseCase = compositionRoot.fetchQuestionsUseCase
-        dialogsNavigator = compositionRoot.dialogsNavigator
-        screensNavigator = compositionRoot.screensNavigator
+        injector.inject(this)
     }
 
     override fun onCreateView(
@@ -43,7 +43,7 @@ class QuestionsListFragment : BaseFragment() , QuestionsListMvc.Listener{
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewMvc = compositionRoot.viewMvcFactory.newQuestionsListMvc(container)
+        viewMvc = viewMvcFactory.newQuestionsListMvc(container)
         return viewMvc.rootView
     }
 

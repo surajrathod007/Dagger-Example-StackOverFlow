@@ -1,4 +1,4 @@
-package com.surajrathod.daggerexample.common.composition
+package com.surajrathod.daggerexample.common.di
 
 import com.surajrathod.daggerexample.questions.FetchQuestionsDetailsUseCase
 import com.surajrathod.daggerexample.questions.FetchQuestionsUseCase

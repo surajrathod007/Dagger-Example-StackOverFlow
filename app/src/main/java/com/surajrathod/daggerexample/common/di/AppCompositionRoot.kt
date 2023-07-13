@@ -1,17 +1,14 @@
-package com.surajrathod.daggerexample.common.composition
+package com.surajrathod.daggerexample.common.di
 
-import android.app.Activity
+import android.app.Application
 import androidx.annotation.UiThread
 import com.surajrathod.daggerexample.Constants
 import com.surajrathod.daggerexample.networking.StackoverflowApi
-import com.surajrathod.daggerexample.questions.FetchQuestionsDetailsUseCase
-import com.surajrathod.daggerexample.questions.FetchQuestionsUseCase
-import com.surajrathod.daggerexample.screens.common.ScreensNavigator
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 @UiThread                   //all the properties in this class will be accessed from the ui thread
-class AppCompositionRoot {
+class AppCompositionRoot(val application: Application) {
 
 
     private val retrofit: Retrofit by lazy {

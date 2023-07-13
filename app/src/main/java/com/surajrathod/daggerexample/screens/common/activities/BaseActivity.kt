@@ -2,9 +2,10 @@ package com.surajrathod.daggerexample.screens.common.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import com.surajrathod.daggerexample.MyApplication
-import com.surajrathod.daggerexample.common.composition.ActivityCompositionRoot
-import com.surajrathod.daggerexample.common.composition.AppCompositionRoot
-import com.surajrathod.daggerexample.common.composition.PresentationCompositionRoot
+import com.surajrathod.daggerexample.common.di.ActivityCompositionRoot
+import com.surajrathod.daggerexample.common.di.AppCompositionRoot
+import com.surajrathod.daggerexample.common.di.Injector
+import com.surajrathod.daggerexample.common.di.PresentationCompositionRoot
 
 open class BaseActivity : AppCompatActivity() {
     private val appCompositionRoot : AppCompositionRoot get() = (application as MyApplication).appCompositionRoot
@@ -16,6 +17,8 @@ open class BaseActivity : AppCompatActivity() {
     protected val compositionRoot by lazy {
         PresentationCompositionRoot(activityCompositionRoot)
     }
+
+    protected val injector get() = Injector(compositionRoot)
 
 
 }
