@@ -12,6 +12,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.surajrathod.daggerexample.Constants
 import com.surajrathod.daggerexample.MyApplication
 import com.surajrathod.daggerexample.R
+import com.surajrathod.daggerexample.common.di.Service
 import com.surajrathod.daggerexample.networking.StackoverflowApi
 import com.surajrathod.daggerexample.questions.FetchQuestionsDetailsUseCase
 import com.surajrathod.daggerexample.screens.common.ScreensNavigator
@@ -33,16 +34,15 @@ class QuestionDetailsActivity : BaseActivity(), QuestionDetailsViewMvc.Listener 
 
     private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
 
-
     lateinit var viewMvc: QuestionDetailsViewMvc
     private lateinit var stackoverflowApi: StackoverflowApi
 
     private lateinit var questionId: String
 
-    lateinit var fetchQuestionsDetailsUseCase: FetchQuestionsDetailsUseCase
-    lateinit var dialogsNavigator: DialogsNavigator
-    lateinit var screensNavigator: ScreensNavigator
-    lateinit var viewMvcFactory: ViewMvcFactory
+    @field:Service private lateinit var fetchQuestionsDetailsUseCase: FetchQuestionsDetailsUseCase
+    @field:Service private lateinit var dialogsNavigator: DialogsNavigator
+    @field:Service private lateinit var screensNavigator: ScreensNavigator
+    @field:Service private lateinit var viewMvcFactory: ViewMvcFactory
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,7 +76,6 @@ class QuestionDetailsActivity : BaseActivity(), QuestionDetailsViewMvc.Listener 
                     is FetchQuestionsDetailsUseCase.Result.Success -> {
                         viewMvc.bindQuestionBody(result.questionBody)
                     }
-
                     is FetchQuestionsDetailsUseCase.Result.Failure -> {
                         onFetchFailed()
                     }

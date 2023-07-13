@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.surajrathod.daggerexample.common.di.Service
 import com.surajrathod.daggerexample.questions.FetchQuestionsUseCase
 import com.surajrathod.daggerexample.questions.Question
 import com.surajrathod.daggerexample.screens.common.ScreensNavigator
@@ -27,10 +28,10 @@ class QuestionsListFragment : BaseFragment() , QuestionsListMvc.Listener{
 
     private lateinit var viewMvc: QuestionsListMvc
 
-    lateinit var fetchQuestionsUseCase: FetchQuestionsUseCase
-    lateinit var dialogsNavigator: DialogsNavigator
-    lateinit var screensNavigator: ScreensNavigator
-    lateinit var viewMvcFactory: ViewMvcFactory
+    @field:Service private lateinit var fetchQuestionsUseCase: FetchQuestionsUseCase
+    @field:Service private lateinit var dialogsNavigator: DialogsNavigator
+    @field:Service private lateinit var screensNavigator: ScreensNavigator
+    @field:Service private lateinit var viewMvcFactory: ViewMvcFactory
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
