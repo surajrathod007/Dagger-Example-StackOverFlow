@@ -1,0 +1,33 @@
+package com.surajrathod.daggerexample.common.di
+
+import android.view.LayoutInflater
+import androidx.appcompat.app.AppCompatActivity
+import com.surajrathod.daggerexample.screens.common.ScreensNavigator
+import dagger.Module
+import dagger.Provides
+
+@Module
+class ActivityModule(
+    private val activity: AppCompatActivity,
+    private val appCompositionRoot: AppCompositionRoot
+) {
+
+    private val screensNavigator by lazy {
+        ScreensNavigator(activity)
+    }
+    @Provides
+    fun screensNavigator() = screensNavigator
+
+    @Provides
+    fun layoutInflater() = LayoutInflater.from(activity)
+
+    @Provides
+    fun application() = appCompositionRoot.application
+
+    @Provides
+    fun fragmentManager() = activity.supportFragmentManager
+
+    @Provides
+    fun stackoverflowApi() = appCompositionRoot.stackoverflowApi
+
+}
