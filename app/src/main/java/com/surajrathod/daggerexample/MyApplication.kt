@@ -2,13 +2,19 @@ package com.surajrathod.daggerexample
 
 import android.app.Application
 import com.surajrathod.daggerexample.common.di.AppCompositionRoot
+import com.surajrathod.daggerexample.common.di.AppModule
+import com.surajrathod.daggerexample.common.di.DaggerAppComponent
 
 class MyApplication : Application() {
 
-    public lateinit var appCompositionRoot: AppCompositionRoot
+    //public lateinit var appCompositionRoot: AppCompositionRoot
+
+    val appComponent by lazy {
+        DaggerAppComponent.builder().appModule(AppModule(this)).build()
+    }
 
     override fun onCreate() {
         super.onCreate()
-        appCompositionRoot = AppCompositionRoot(this)
+        //appCompositionRoot = AppCompositionRoot(this)
     }
 }
