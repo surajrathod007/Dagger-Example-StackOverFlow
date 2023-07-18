@@ -1,4 +1,4 @@
-package com.surajrathod.daggerexample.common.di
+package com.surajrathod.daggerexample.common.di.app
 
 import android.app.Application
 import com.surajrathod.daggerexample.Constants

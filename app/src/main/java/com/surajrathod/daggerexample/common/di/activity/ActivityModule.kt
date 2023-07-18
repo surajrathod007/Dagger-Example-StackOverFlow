@@ -1,7 +1,8 @@
-package com.surajrathod.daggerexample.common.di
+package com.surajrathod.daggerexample.common.di.activity
 
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
+import com.surajrathod.daggerexample.common.di.app.AppComponent
 import com.surajrathod.daggerexample.screens.common.ScreensNavigator
 import dagger.Module
 import dagger.Provides
