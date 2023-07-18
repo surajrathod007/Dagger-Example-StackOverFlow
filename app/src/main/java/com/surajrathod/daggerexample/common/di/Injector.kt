@@ -4,14 +4,11 @@ import com.surajrathod.daggerexample.questions.FetchQuestionsDetailsUseCase
 import com.surajrathod.daggerexample.questions.FetchQuestionsUseCase
 import com.surajrathod.daggerexample.screens.common.ScreensNavigator
 import com.surajrathod.daggerexample.screens.common.dialogs.DialogsNavigator
-import com.surajrathod.daggerexample.screens.common.fragments.BaseFragment
 import com.surajrathod.daggerexample.screens.common.viewsMvc.ViewMvcFactory
-import com.surajrathod.daggerexample.screens.questiondetails.QuestionDetailsActivity
-import com.surajrathod.daggerexample.screens.questionslist.QuestionsListFragment
 import java.lang.Exception
 import java.lang.reflect.Field
 
-class Injector(private val presentationCompositionRoot: PresentationCompositionRoot) {
+class Injector(private val presentationComponent: PresentationComponent) {
 
     fun inject(client : Any) {
         for(field in getAllFields(client)){
@@ -31,19 +28,19 @@ class Injector(private val presentationCompositionRoot: PresentationCompositionR
     private fun getServiceForClass(type: Class<*>?): Any? {
         return when(type){
             DialogsNavigator::class.java->{
-                presentationCompositionRoot.dialogsNavigator
+                presentationComponent.dialogsNavigator()
             }
             ScreensNavigator::class.java->{
-                presentationCompositionRoot.screensNavigator
+                presentationComponent.screensNavigator()
             }
             FetchQuestionsUseCase::class.java->{
-                presentationCompositionRoot.fetchQuestionsUseCase
+                presentationComponent.fetchQuestionsUseCase()
             }
             FetchQuestionsDetailsUseCase::class.java->{
-                presentationCompositionRoot.fetchQuestionsDetailsUseCase
+                presentationComponent.fetchQuestionsDetailsUseCase()
             }
             ViewMvcFactory::class.java->{
-                presentationCompositionRoot.viewMvcFactory
+                presentationComponent.viewMvcFactory()
             }
             else->{
                 throw Exception("Unsupported service type of $type")
