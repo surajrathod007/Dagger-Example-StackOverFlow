@@ -2,7 +2,6 @@ package com.surajrathod.daggerexample.screens.common.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import com.surajrathod.daggerexample.MyApplication
-import com.surajrathod.daggerexample.common.di.ActivityCompositionRoot
 import com.surajrathod.daggerexample.common.di.ActivityModule
 import com.surajrathod.daggerexample.common.di.AppCompositionRoot
 import com.surajrathod.daggerexample.common.di.DaggerActivityComponent
