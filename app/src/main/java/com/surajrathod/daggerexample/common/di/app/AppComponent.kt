@@ -1,9 +1,8 @@
-package com.surajrathod.daggerexample.common.di
+package com.surajrathod.daggerexample.common.di.app
 
 import android.app.Application
 import com.surajrathod.daggerexample.networking.StackoverflowApi
 import dagger.Component
-import dagger.Provides
 
 @Component(modules = [AppModule::class])
 interface AppComponent {

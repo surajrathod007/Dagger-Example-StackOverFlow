@@ -2,12 +2,12 @@ package com.surajrathod.daggerexample.screens.common.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import com.surajrathod.daggerexample.MyApplication
-import com.surajrathod.daggerexample.common.di.ActivityModule
-import com.surajrathod.daggerexample.common.di.AppComponent
-import com.surajrathod.daggerexample.common.di.DaggerActivityComponent
-import com.surajrathod.daggerexample.common.di.DaggerPresentationComponent
+import com.surajrathod.daggerexample.common.di.activity.ActivityModule
+import com.surajrathod.daggerexample.common.di.app.AppComponent
+import com.surajrathod.daggerexample.common.di.activity.DaggerActivityComponent
+import com.surajrathod.daggerexample.common.di.presentation.DaggerPresentationComponent
 import com.surajrathod.daggerexample.common.di.Injector
-import com.surajrathod.daggerexample.common.di.PresentationModule
+import com.surajrathod.daggerexample.common.di.presentation.PresentationModule
 
 open class BaseActivity : AppCompatActivity() {
     private val appComponent: AppComponent get() = (application as MyApplication).appComponent

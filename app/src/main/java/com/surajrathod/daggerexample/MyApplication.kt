@@ -1,8 +1,8 @@
 package com.surajrathod.daggerexample
 
 import android.app.Application
-import com.surajrathod.daggerexample.common.di.AppModule
-import com.surajrathod.daggerexample.common.di.DaggerAppComponent
+import com.surajrathod.daggerexample.common.di.app.AppModule
+import com.surajrathod.daggerexample.common.di.app.DaggerAppComponent
 
 class MyApplication : Application() {
 
