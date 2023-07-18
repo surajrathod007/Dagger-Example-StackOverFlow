@@ -8,6 +8,7 @@ import com.surajrathod.daggerexample.screens.common.ScreensNavigator
 import dagger.Component
 
 
+@ActivityScope
 @Component(modules = [ActivityModule::class])
 interface ActivityComponent {
 
