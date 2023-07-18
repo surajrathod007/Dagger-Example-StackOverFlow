@@ -1,7 +1,6 @@
 package com.surajrathod.daggerexample
 
 import android.app.Application
-import com.surajrathod.daggerexample.common.di.AppCompositionRoot
 import com.surajrathod.daggerexample.common.di.AppModule
 import com.surajrathod.daggerexample.common.di.DaggerAppComponent
 

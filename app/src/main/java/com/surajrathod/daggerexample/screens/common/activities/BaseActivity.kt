@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.surajrathod.daggerexample.MyApplication
 import com.surajrathod.daggerexample.common.di.ActivityModule
 import com.surajrathod.daggerexample.common.di.AppComponent
-import com.surajrathod.daggerexample.common.di.AppCompositionRoot
 import com.surajrathod.daggerexample.common.di.DaggerActivityComponent
 import com.surajrathod.daggerexample.common.di.DaggerPresentationComponent
 import com.surajrathod.daggerexample.common.di.Injector
