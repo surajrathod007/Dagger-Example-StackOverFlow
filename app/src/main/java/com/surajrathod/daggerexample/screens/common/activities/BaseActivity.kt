@@ -9,7 +9,7 @@ open class BaseActivity : AppCompatActivity() {
     private val appComponent: AppComponent get() = (application as MyApplication).appComponent
 
     val activityCompositionRoot by lazy {
-        appComponent.newActivityComponent(ActivityModule(this))
+        appComponent.newActivityComponentBuilder().activity(this).activityModule(ActivityModule).build()
     }
 
     //val compositionRoot : AppCompositionRoot get() = (application as MyApplication).appCompositionRoot
