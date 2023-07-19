@@ -5,19 +5,13 @@ import com.surajrathod.daggerexample.questions.FetchQuestionsUseCase
 import com.surajrathod.daggerexample.screens.common.ScreensNavigator
 import com.surajrathod.daggerexample.screens.common.dialogs.DialogsNavigator
 import com.surajrathod.daggerexample.screens.common.viewsMvc.ViewMvcFactory
+import com.surajrathod.daggerexample.screens.questiondetails.QuestionDetailsActivity
+import com.surajrathod.daggerexample.screens.questionslist.QuestionsListFragment
 import dagger.Component
 
 @Component(modules = [PresentationModule::class])
 interface PresentationComponent {
-
-    fun screensNavigator() : ScreensNavigator
-
-    fun viewMvcFactory() : ViewMvcFactory
-
-    fun dialogsNavigator() : DialogsNavigator
-
-    fun fetchQuestionsUseCase() : FetchQuestionsUseCase
-
-    fun fetchQuestionsDetailsUseCase() : FetchQuestionsDetailsUseCase
+    fun inject(fragment : QuestionsListFragment)
+    fun inject(questionDetailsActivity: QuestionDetailsActivity)
 
 }
