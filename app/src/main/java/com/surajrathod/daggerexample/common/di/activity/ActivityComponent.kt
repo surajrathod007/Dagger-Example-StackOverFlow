@@ -10,21 +10,11 @@ import com.surajrathod.daggerexample.common.di.presentation.PresentationModule
 import com.surajrathod.daggerexample.networking.StackoverflowApi
 import com.surajrathod.daggerexample.screens.common.ScreensNavigator
 import dagger.Component
+import dagger.Subcomponent
 
 
 @ActivityScope
-@Component(modules = [ActivityModule::class], dependencies = [AppComponent::class])
+@Subcomponent(modules = [ActivityModule::class])
 interface ActivityComponent {
-//
-//    fun screensNavigator() : ScreensNavigator
-//
-//    fun layoutInflater() : LayoutInflater
-//
-//    fun activity() : AppCompatActivity
-//
-//    fun fragmentManager() : FragmentManager
-//
-//    fun stackoverflowApi() : StackoverflowApi
-
     fun newPresentationComponent(presentationModule: PresentationModule) : PresentationComponent
 }
