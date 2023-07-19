@@ -7,13 +7,9 @@ import com.surajrathod.daggerexample.screens.common.activities.BaseActivity
 
 open class BaseFragment : Fragment() {
 
-    private val compositionRoot by lazy {
-        PresentationModule((requireActivity() as BaseActivity).activityCompositionRoot)
-    }
-
     private val presentationComponent by lazy {
-        DaggerPresentationComponent.builder()
-            .presentationModule(PresentationModule((requireActivity() as BaseActivity).activityCompositionRoot)).build()
+        DaggerPresentationComponent.builder().activityComponent((requireActivity() as BaseActivity).activityCompositionRoot)
+            .presentationModule(PresentationModule()).build()
     }
 
     protected val injector get() = presentationComponent

@@ -12,18 +12,8 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-class PresentationModule(private val activityCompositionRoot: ActivityComponent) {
+class PresentationModule() {
 
-
-    @Provides
-    fun layoutInflater() = activityCompositionRoot.layoutInflater()
-    @Provides
-    fun fragmentManager() = activityCompositionRoot.fragmentManager()
-    @Provides
-    fun stackOverFlowApi() = activityCompositionRoot.stackoverflowApi()
-
-    @Provides
-    fun screensNavigator() = activityCompositionRoot.screensNavigator()
     @Provides
     fun viewMvcFactory(layoutInflater: LayoutInflater) = ViewMvcFactory(layoutInflater)
 

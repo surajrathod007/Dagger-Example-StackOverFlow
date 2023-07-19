@@ -21,8 +21,8 @@ open class BaseActivity : AppCompatActivity() {
 //    }
 
     private val presentationComponent by lazy {
-        DaggerPresentationComponent.builder()
-            .presentationModule(PresentationModule(activityCompositionRoot)).build()
+        DaggerPresentationComponent.builder().activityComponent(activityCompositionRoot)
+            .presentationModule(PresentationModule()).build()
     }
 
     protected val injector get() = presentationComponent

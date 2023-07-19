@@ -1,5 +1,6 @@
 package com.surajrathod.daggerexample.common.di.presentation
 
+import com.surajrathod.daggerexample.common.di.activity.ActivityComponent
 import com.surajrathod.daggerexample.questions.FetchQuestionsDetailsUseCase
 import com.surajrathod.daggerexample.questions.FetchQuestionsUseCase
 import com.surajrathod.daggerexample.screens.common.ScreensNavigator
@@ -9,9 +10,10 @@ import com.surajrathod.daggerexample.screens.questiondetails.QuestionDetailsActi
 import com.surajrathod.daggerexample.screens.questionslist.QuestionsListFragment
 import dagger.Component
 
-@Component(modules = [PresentationModule::class])
+@PresentationScope
+@Component(modules = [PresentationModule::class], dependencies = [ActivityComponent::class])
 interface PresentationComponent {
-    fun inject(fragment : QuestionsListFragment)
+    fun inject(fragment: QuestionsListFragment)
     fun inject(questionDetailsActivity: QuestionDetailsActivity)
 
 }
