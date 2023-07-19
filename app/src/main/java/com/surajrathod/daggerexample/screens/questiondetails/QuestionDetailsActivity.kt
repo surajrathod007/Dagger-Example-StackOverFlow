@@ -2,33 +2,19 @@ package com.surajrathod.daggerexample.screens.questiondetails
 
 import android.content.Context
 import android.content.Intent
-import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Html
-import android.view.LayoutInflater
-import android.widget.TextView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.surajrathod.daggerexample.Constants
-import com.surajrathod.daggerexample.MyApplication
-import com.surajrathod.daggerexample.R
-import com.surajrathod.daggerexample.common.di.Service
 import com.surajrathod.daggerexample.networking.StackoverflowApi
 import com.surajrathod.daggerexample.questions.FetchQuestionsDetailsUseCase
 import com.surajrathod.daggerexample.screens.common.ScreensNavigator
 import com.surajrathod.daggerexample.screens.common.activities.BaseActivity
 import com.surajrathod.daggerexample.screens.common.dialogs.DialogsNavigator
-import com.surajrathod.daggerexample.screens.common.dialogs.ServerErrorDialogFragment
-import com.surajrathod.daggerexample.screens.common.toolbar.MyToolbar
 import com.surajrathod.daggerexample.screens.common.viewsMvc.ViewMvcFactory
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancelChildren
 import kotlinx.coroutines.launch
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import kotlin.coroutines.cancellation.CancellationException
+import javax.inject.Inject
 
 class QuestionDetailsActivity : BaseActivity(), QuestionDetailsViewMvc.Listener {
 
@@ -39,10 +25,10 @@ class QuestionDetailsActivity : BaseActivity(), QuestionDetailsViewMvc.Listener 
 
     private lateinit var questionId: String
 
-    @field:Service private lateinit var fetchQuestionsDetailsUseCase: FetchQuestionsDetailsUseCase
-    @field:Service private lateinit var dialogsNavigator: DialogsNavigator
-    @field:Service private lateinit var screensNavigator: ScreensNavigator
-    @field:Service private lateinit var viewMvcFactory: ViewMvcFactory
+    @Inject lateinit var fetchQuestionsDetailsUseCase: FetchQuestionsDetailsUseCase
+    @Inject lateinit var dialogsNavigator: DialogsNavigator
+    @Inject lateinit var screensNavigator: ScreensNavigator
+    @Inject lateinit var viewMvcFactory: ViewMvcFactory
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
