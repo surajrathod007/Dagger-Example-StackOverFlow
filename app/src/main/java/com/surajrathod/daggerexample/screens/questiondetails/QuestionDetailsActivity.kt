@@ -3,7 +3,6 @@ package com.surajrathod.daggerexample.screens.questiondetails
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import com.surajrathod.daggerexample.networking.StackoverflowApi
 import com.surajrathod.daggerexample.questions.FetchQuestionsDetailsUseCase
 import com.surajrathod.daggerexample.screens.common.ScreensNavigator
