@@ -6,6 +6,7 @@ import com.surajrathod.daggerexample.common.di.activity.ActivityModule
 import com.surajrathod.daggerexample.common.di.app.AppComponent
 import com.surajrathod.daggerexample.common.di.app.AppModule
 import com.surajrathod.daggerexample.common.di.presentation.PresentationModule
+import com.surajrathod.daggerexample.common.di.presentation.UseCasesModule
 
 open class BaseActivity : AppCompatActivity() {
     private val appComponent: AppComponent get() = (application as MyApplication).appComponent
@@ -20,7 +21,7 @@ open class BaseActivity : AppCompatActivity() {
 //    }
 
     private val presentationComponent by lazy {
-        activityCompositionRoot.newPresentationComponent(PresentationModule())
+        activityCompositionRoot.newPresentationComponent(PresentationModule(), UseCasesModule())
     }
 
     protected val injector get() = presentationComponent
