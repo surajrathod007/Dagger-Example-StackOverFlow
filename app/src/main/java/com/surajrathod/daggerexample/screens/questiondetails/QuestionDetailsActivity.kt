@@ -3,6 +3,7 @@ package com.surajrathod.daggerexample.screens.questiondetails
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import com.surajrathod.daggerexample.networking.StackoverflowApi
 import com.surajrathod.daggerexample.questions.FetchQuestionsDetailsUseCase
 import com.surajrathod.daggerexample.screens.common.ScreensNavigator
@@ -33,6 +34,7 @@ class QuestionDetailsActivity : BaseActivity(), QuestionDetailsViewMvc.Listener 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         injector.inject(this)
+
         viewMvc = viewMvcFactory.newQuestionDetailsMvc(null)
         setContentView(viewMvc.rootView)
 

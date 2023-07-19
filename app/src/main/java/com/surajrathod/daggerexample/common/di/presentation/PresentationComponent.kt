@@ -7,14 +7,18 @@ import com.surajrathod.daggerexample.screens.common.ScreensNavigator
 import com.surajrathod.daggerexample.screens.common.dialogs.DialogsNavigator
 import com.surajrathod.daggerexample.screens.common.viewsMvc.ViewMvcFactory
 import com.surajrathod.daggerexample.screens.questiondetails.QuestionDetailsActivity
+import com.surajrathod.daggerexample.screens.questionslist.QuestionsListActivity
 import com.surajrathod.daggerexample.screens.questionslist.QuestionsListFragment
 import dagger.Component
 import dagger.Subcomponent
 
 @PresentationScope
-@Subcomponent(modules = [PresentationModule::class,UseCasesModule::class])
+@Subcomponent()
 interface PresentationComponent {
     fun inject(fragment: QuestionsListFragment)
     fun inject(questionDetailsActivity: QuestionDetailsActivity)
+    fun inject(questionsListActivity: QuestionsListActivity) {
+
+    }
 
 }

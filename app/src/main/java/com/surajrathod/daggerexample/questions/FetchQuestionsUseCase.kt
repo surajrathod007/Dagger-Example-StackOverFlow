@@ -8,8 +8,9 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Inject
 
-class FetchQuestionsUseCase(
+class FetchQuestionsUseCase @Inject constructor(
     private var stackoverflowApi: StackoverflowApi
 ) {
 

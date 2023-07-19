@@ -1,8 +1,11 @@
 package com.surajrathod.daggerexample.screens.questionslist
 
 import android.os.Bundle
+import android.util.Log
 import com.surajrathod.daggerexample.R
+import com.surajrathod.daggerexample.screens.common.ScreensNavigator
 import com.surajrathod.daggerexample.screens.common.activities.BaseActivity
+import javax.inject.Inject
 
 class QuestionsListActivity : BaseActivity() {
 
@@ -17,8 +20,13 @@ class QuestionsListActivity : BaseActivity() {
 //    lateinit var dialogsNavigator: DialogsNavigator
 //    lateinit var screensNavigator: ScreensNavigator
 
+    @Inject lateinit var screensNavigator : ScreensNavigator
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
+        injector.inject(this)
 
         setContentView(R.layout.layout_frame)
         if (savedInstanceState == null) {

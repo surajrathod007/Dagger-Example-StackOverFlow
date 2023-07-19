@@ -12,28 +12,13 @@ class ActivityModule(
     private val activity: AppCompatActivity,
 ) {
 
-//    private val screensNavigator by lazy {
-//        ScreensNavigator(activity)
-//    }
-
-
     @Provides
     fun activity() = activity
 
     @Provides
-    @ActivityScope
-    fun screensNavigator(activity: AppCompatActivity) = ScreensNavigator(activity)
-
-    @Provides
     fun layoutInflater(activity: AppCompatActivity) = LayoutInflater.from(activity)
-
-//    @Provides
-//    fun application() = appComponent.application()
 
     @Provides
     fun fragmentManager(activity: AppCompatActivity) = activity.supportFragmentManager
-
-//    @Provides
-//    fun stackoverflowApi() = appComponent.stackOverFlowApi()
 
 }

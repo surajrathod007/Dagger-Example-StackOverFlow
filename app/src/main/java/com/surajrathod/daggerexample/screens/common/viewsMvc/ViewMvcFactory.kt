@@ -4,8 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.surajrathod.daggerexample.screens.questiondetails.QuestionDetailsViewMvc
 import com.surajrathod.daggerexample.screens.questionslist.QuestionsListMvc
+import javax.inject.Inject
 
-class ViewMvcFactory(private val layoutInflater: LayoutInflater) {
+class ViewMvcFactory @Inject constructor(private val layoutInflater: LayoutInflater) {
 
     fun newQuestionsListMvc(parent: ViewGroup?): QuestionsListMvc {
         return QuestionsListMvc(layoutInflater, parent)

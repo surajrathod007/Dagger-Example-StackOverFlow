@@ -1,6 +1,7 @@
 package com.surajrathod.daggerexample.screens.questionslist
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,6 +38,7 @@ class QuestionsListFragment : BaseFragment() , QuestionsListMvc.Listener{
         super.onCreate(savedInstanceState)
 
         injector.inject(this)
+
     }
 
     override fun onCreateView(
