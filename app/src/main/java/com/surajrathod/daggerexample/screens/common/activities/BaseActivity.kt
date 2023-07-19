@@ -6,7 +6,6 @@ import com.surajrathod.daggerexample.common.di.activity.ActivityModule
 import com.surajrathod.daggerexample.common.di.app.AppComponent
 import com.surajrathod.daggerexample.common.di.activity.DaggerActivityComponent
 import com.surajrathod.daggerexample.common.di.app.AppModule
-import com.surajrathod.daggerexample.common.di.presentation.DaggerPresentationComponent
 import com.surajrathod.daggerexample.common.di.presentation.PresentationModule
 
 open class BaseActivity : AppCompatActivity() {
@@ -22,8 +21,7 @@ open class BaseActivity : AppCompatActivity() {
 //    }
 
     private val presentationComponent by lazy {
-        DaggerPresentationComponent.builder().activityComponent(activityCompositionRoot)
-            .presentationModule(PresentationModule()).build()
+        activityCompositionRoot.newPresentationComponent(PresentationModule())
     }
 
     protected val injector get() = presentationComponent

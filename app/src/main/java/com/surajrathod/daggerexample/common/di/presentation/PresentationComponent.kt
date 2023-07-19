@@ -9,9 +9,10 @@ import com.surajrathod.daggerexample.screens.common.viewsMvc.ViewMvcFactory
 import com.surajrathod.daggerexample.screens.questiondetails.QuestionDetailsActivity
 import com.surajrathod.daggerexample.screens.questionslist.QuestionsListFragment
 import dagger.Component
+import dagger.Subcomponent
 
 @PresentationScope
-@Component(modules = [PresentationModule::class], dependencies = [ActivityComponent::class])
+@Subcomponent(modules = [PresentationModule::class])
 interface PresentationComponent {
     fun inject(fragment: QuestionsListFragment)
     fun inject(questionDetailsActivity: QuestionDetailsActivity)
