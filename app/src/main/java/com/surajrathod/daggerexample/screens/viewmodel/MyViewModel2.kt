@@ -11,16 +11,26 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Provider
 
-class MyViewModel @Inject constructor(private val fetchQuestionsUseCase: FetchQuestionsUseCase) : ViewModel() {
+class MyViewModel2 @Inject constructor(private val fetchQuestionsUseCase: FetchQuestionsUseCase) :
+    ViewModel() {
+
 
     private val _questions = MutableLiveData<List<Question>>()
-    val questions : LiveData<List<Question>> = _questions
+    val questions: LiveData<List<Question>> = _questions
+
     init {
         viewModelScope.launch {
             val r = fetchQuestionsUseCase.fetchQuestions()
-            if(r is FetchQuestionsUseCase.Result.Success){
+            if (r is FetchQuestionsUseCase.Result.Success) {
                 _questions.value = r.questions
             }
+        }
+    }
+
+    class MyViewModelFactory @Inject constructor(private val viewModelProvider: Provider<MyViewModel>) :
+        ViewModelProvider.Factory {
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
+            return viewModelProvider.get() as T
         }
     }
 }

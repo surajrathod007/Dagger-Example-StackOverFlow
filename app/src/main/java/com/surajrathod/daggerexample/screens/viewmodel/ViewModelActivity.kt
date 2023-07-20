@@ -11,13 +11,14 @@ import com.surajrathod.daggerexample.R
 import com.surajrathod.daggerexample.screens.common.ScreensNavigator
 import com.surajrathod.daggerexample.screens.common.activities.BaseActivity
 import com.surajrathod.daggerexample.screens.common.toolbar.MyToolbar
+import com.surajrathod.daggerexample.screens.common.viewmodels.ViewModelFactory
 import java.lang.Exception
 import javax.inject.Inject
 
 class ViewModelActivity : BaseActivity() {
 
     @Inject lateinit var screensNavigator: ScreensNavigator
-    @Inject lateinit var myViewModelFactory : MyViewModel.MyViewModelFactory
+    @Inject lateinit var myViewModelFactory : ViewModelFactory
 
     private lateinit var toolbar: MyToolbar
     private lateinit var vm : MyViewModel
