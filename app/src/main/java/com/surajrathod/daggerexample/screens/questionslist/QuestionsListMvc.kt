@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.surajrathod.daggerexample.R
 import com.surajrathod.daggerexample.questions.Question
+import com.surajrathod.daggerexample.screens.common.toolbar.MyToolbar
 import com.surajrathod.daggerexample.screens.common.viewsMvc.BaseViewMvc
 
 
@@ -23,18 +24,28 @@ R.layout.layout_questions_list) {
     interface Listener {
         fun onRefreshClicked()
         fun onQuestionClicked(clickedQuestion: Question)
+
+        fun onViewModelClicked()
     }
 
 
     private var swipeRefresh: SwipeRefreshLayout
     private var recyclerView: RecyclerView
     private var questionsAdapter: QuestionsAdapter
+    private var toolbar : MyToolbar
 
     //val rootView: View = layoutInflater.inflate(R.layout.layout_questions_list, parent, false)
 
 
 
     init {
+
+        toolbar = findViewById(R.id.toolbar)
+        toolbar.setupViewModelListener {
+            for(listener in listeners){
+                listener.onViewModelClicked()
+            }
+        }
 
         // init pull-down-to-refresh
         swipeRefresh = findViewById(R.id.swipeRefresh)
@@ -107,5 +118,6 @@ R.layout.layout_questions_list) {
         }
 
     }
+
 
 }

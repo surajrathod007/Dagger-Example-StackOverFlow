@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.surajrathod.daggerexample.questions.FetchQuestionsUseCase
 import com.surajrathod.daggerexample.questions.Question
 import com.surajrathod.daggerexample.screens.common.ScreensNavigator
@@ -94,6 +95,9 @@ class QuestionsListFragment : BaseFragment() , QuestionsListMvc.Listener{
         screensNavigator.toQuestionDetails(clickedQuestion.id)
     }
 
+    override fun onViewModelClicked() {
+        screensNavigator.toViewModel()
+    }
 
 
 }

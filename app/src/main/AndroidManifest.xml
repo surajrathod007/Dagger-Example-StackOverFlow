@@ -16,6 +16,9 @@
         android:theme="@style/Theme.DaggerExample"
         tools:targetApi="31">
         <activity
+            android:name=".screens.viewmodel.ViewModelActivity"
+            android:exported="false" />
+        <activity
             android:name=".screens.questionslist.QuestionsListActivity"
             android:exported="true">
             <intent-filter>
@@ -29,9 +32,7 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="true">
-
-        </activity>
+            android:exported="true"></activity>
     </application>
 
 </manifest>

@@ -23,6 +23,7 @@ R.layout.layout_question_details) {
 
     interface Listener{
         fun onBackClicked()
+
     }
 
     private var toolbar: MyToolbar
