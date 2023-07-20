@@ -15,6 +15,7 @@ import javax.inject.Inject
 class ViewModelActivity : BaseActivity() {
 
     @Inject lateinit var screensNavigator: ScreensNavigator
+    @Inject lateinit var vm : MyViewModel
     private lateinit var toolbar: MyToolbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,6 +25,9 @@ class ViewModelActivity : BaseActivity() {
         toolbar = findViewById(R.id.toolbar)
         toolbar.setNavigateUpListener {
             screensNavigator.navigateBack()
+        }
+        vm.questions.observe(this){
+            Toast.makeText(this,"${it.size}",Toast.LENGTH_LONG).show()
         }
     }
 
