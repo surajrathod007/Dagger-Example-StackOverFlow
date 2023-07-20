@@ -1,9 +1,9 @@
 package com.surajrathod.daggerexample.screens.questionslist
 
 import android.os.Bundle
-import android.util.Log
 import com.surajrathod.daggerexample.R
 import com.surajrathod.daggerexample.screens.common.ScreensNavigator
+import com.surajrathod.daggerexample.screens.common.ScreensNavigatorImpl
 import com.surajrathod.daggerexample.screens.common.activities.BaseActivity
 import javax.inject.Inject
 

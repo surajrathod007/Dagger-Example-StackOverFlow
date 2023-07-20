@@ -2,8 +2,8 @@ package com.surajrathod.daggerexample.common.di.activity
 
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
-import com.surajrathod.daggerexample.common.di.app.AppComponent
 import com.surajrathod.daggerexample.screens.common.ScreensNavigator
+import com.surajrathod.daggerexample.screens.common.ScreensNavigatorImpl
 import dagger.Module
 import dagger.Provides
 
@@ -19,7 +19,7 @@ object ActivityModule {
 
     @Provides
     @ActivityScope
-    fun screensNavigator(activity: AppCompatActivity) = ScreensNavigator(activity)
+    fun screensNavigator(activity: AppCompatActivity) : ScreensNavigator = ScreensNavigatorImpl(activity)
 
 }
 

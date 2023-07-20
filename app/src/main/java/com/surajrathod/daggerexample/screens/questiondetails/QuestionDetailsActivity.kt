@@ -6,6 +6,7 @@ import android.os.Bundle
 import com.surajrathod.daggerexample.networking.StackoverflowApi
 import com.surajrathod.daggerexample.questions.FetchQuestionsDetailsUseCase
 import com.surajrathod.daggerexample.screens.common.ScreensNavigator
+import com.surajrathod.daggerexample.screens.common.ScreensNavigatorImpl
 import com.surajrathod.daggerexample.screens.common.activities.BaseActivity
 import com.surajrathod.daggerexample.screens.common.dialogs.DialogsNavigator
 import com.surajrathod.daggerexample.screens.common.viewsMvc.ViewMvcFactory

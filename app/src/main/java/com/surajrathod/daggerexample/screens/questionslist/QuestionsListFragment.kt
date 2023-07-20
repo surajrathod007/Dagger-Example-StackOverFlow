@@ -1,13 +1,13 @@
 package com.surajrathod.daggerexample.screens.questionslist
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.surajrathod.daggerexample.questions.FetchQuestionsUseCase
 import com.surajrathod.daggerexample.questions.Question
 import com.surajrathod.daggerexample.screens.common.ScreensNavigator
+import com.surajrathod.daggerexample.screens.common.ScreensNavigatorImpl
 import com.surajrathod.daggerexample.screens.common.dialogs.DialogsNavigator
 import com.surajrathod.daggerexample.screens.common.fragments.BaseFragment
 import com.surajrathod.daggerexample.screens.common.toolbar.MyToolbar
