@@ -7,7 +7,7 @@ import com.surajrathod.daggerexample.screens.viewmodel.ViewModelActivity
 import dagger.Subcomponent
 
 @PresentationScope
-@Subcomponent(modules = [ViewModelModule::class])
+@Subcomponent(modules = [PresentationModule::class])
 interface PresentationComponent {
     fun inject(fragment: QuestionsListFragment)
     fun inject(questionDetailsActivity: QuestionDetailsActivity)
