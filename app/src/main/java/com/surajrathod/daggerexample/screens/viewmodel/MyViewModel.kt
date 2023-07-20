@@ -3,11 +3,13 @@ package com.surajrathod.daggerexample.screens.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.surajrathod.daggerexample.questions.FetchQuestionsUseCase
 import com.surajrathod.daggerexample.questions.Question
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import javax.inject.Provider
 
 class MyViewModel @Inject constructor(private val fetchQuestionsUseCase: FetchQuestionsUseCase) : ViewModel() {
 
@@ -19,6 +21,12 @@ class MyViewModel @Inject constructor(private val fetchQuestionsUseCase: FetchQu
             if(r is FetchQuestionsUseCase.Result.Success){
                 _questions.value = r.questions
             }
+        }
+    }
+
+    class MyViewModelFactory @Inject constructor(private val fetchQuestionsUseCaseProvider : Provider<FetchQuestionsUseCase>) : ViewModelProvider.Factory{
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
+            return MyViewModel(fetchQuestionsUseCaseProvider.get()) as T
         }
     }
 }
