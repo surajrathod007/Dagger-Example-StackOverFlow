@@ -5,8 +5,10 @@ import com.surajrathod.daggerexample.R
 import com.surajrathod.daggerexample.screens.common.ScreensNavigator
 import com.surajrathod.daggerexample.screens.common.ScreensNavigatorImpl
 import com.surajrathod.daggerexample.screens.common.activities.BaseActivity
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class QuestionsListActivity : BaseActivity() {
 
 //    private val coroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
@@ -26,7 +28,7 @@ class QuestionsListActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
 
 
-        injector.inject(this)
+
 
         setContentView(R.layout.layout_frame)
         if (savedInstanceState == null) {

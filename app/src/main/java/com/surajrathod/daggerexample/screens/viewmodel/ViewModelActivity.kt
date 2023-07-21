@@ -12,9 +12,11 @@ import com.surajrathod.daggerexample.screens.common.ScreensNavigator
 import com.surajrathod.daggerexample.screens.common.activities.BaseActivity
 import com.surajrathod.daggerexample.screens.common.toolbar.MyToolbar
 import com.surajrathod.daggerexample.screens.common.viewmodels.ViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
 import java.lang.Exception
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class ViewModelActivity : BaseActivity() {
 
     @Inject lateinit var screensNavigator: ScreensNavigator
@@ -26,7 +28,7 @@ class ViewModelActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        injector.inject(this)
+
         setContentView(R.layout.layout_view_model)
         vm = ViewModelProvider(this,myViewModelFactory).get(MyViewModel::class.java)
         toolbar = findViewById(R.id.toolbar)
