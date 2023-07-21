@@ -7,10 +7,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.surajrathod.daggerexample.questions.FetchQuestionsUseCase
 import com.surajrathod.daggerexample.questions.Question
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Provider
 
+@HiltViewModel
 class MyViewModel2 @Inject constructor(private val fetchQuestionsUseCase: FetchQuestionsUseCase) :
     ViewModel() {
 

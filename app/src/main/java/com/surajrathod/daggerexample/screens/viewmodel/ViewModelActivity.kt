@@ -2,35 +2,30 @@ package com.surajrathod.daggerexample.screens.viewmodel
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.surajrathod.daggerexample.R
 import com.surajrathod.daggerexample.screens.common.ScreensNavigator
 import com.surajrathod.daggerexample.screens.common.activities.BaseActivity
 import com.surajrathod.daggerexample.screens.common.toolbar.MyToolbar
-import com.surajrathod.daggerexample.screens.common.viewmodels.ViewModelFactory
 import dagger.hilt.android.AndroidEntryPoint
-import java.lang.Exception
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class ViewModelActivity : BaseActivity() {
 
     @Inject lateinit var screensNavigator: ScreensNavigator
-    @Inject lateinit var myViewModelFactory : ViewModelFactory
+    private lateinit var vm : MyViewModel
 
     private lateinit var toolbar: MyToolbar
-    private lateinit var vm : MyViewModel
     private lateinit var txtView : TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.layout_view_model)
-        vm = ViewModelProvider(this,myViewModelFactory).get(MyViewModel::class.java)
+        vm = ViewModelProvider(this).get(MyViewModel::class.java)
         toolbar = findViewById(R.id.toolbar)
         txtView = findViewById(R.id.txtSample)
         toolbar.setNavigateUpListener {
