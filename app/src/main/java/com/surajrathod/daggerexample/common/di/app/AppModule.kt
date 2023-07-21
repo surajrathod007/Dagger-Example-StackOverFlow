@@ -7,16 +7,19 @@ import com.surajrathod.daggerexample.common.di.Retrofit2
 import com.surajrathod.daggerexample.networking.StackoverflowApi
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module
-class AppModule(val application: Application) {
+@InstallIn(SingletonComponent::class)
+class AppModule{
 
 
     @Provides
-    @AppScope
+    @Singleton
     @Retrofit1
     fun retrofit1() : Retrofit = Retrofit.Builder()
         .baseUrl(Constants.BASE_URL)
@@ -25,7 +28,7 @@ class AppModule(val application: Application) {
 
     //it is just sake of example of dagger qualifiers ;)
     @Provides
-    @AppScope
+    @Singleton
     @Retrofit2
     fun retrofit2() : Retrofit = Retrofit.Builder()
         .baseUrl("Some other url")
@@ -33,10 +36,8 @@ class AppModule(val application: Application) {
         .build()
 
 
-    @Provides
-    fun application() = application
 
-    @AppScope
+    @Singleton
     @Provides
     fun stackOverFlowApi(@Retrofit1 retrofit1: Retrofit) = retrofit1.create(StackoverflowApi::class.java)
 }
