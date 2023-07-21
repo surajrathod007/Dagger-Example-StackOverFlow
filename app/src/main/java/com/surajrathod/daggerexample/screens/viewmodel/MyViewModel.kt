@@ -9,17 +9,19 @@ import androidx.lifecycle.viewModelScope
 import com.surajrathod.daggerexample.questions.FetchQuestionsDetailsUseCase
 import com.surajrathod.daggerexample.questions.FetchQuestionsUseCase
 import com.surajrathod.daggerexample.questions.Question
+import com.surajrathod.daggerexample.screens.common.viewmodels.SavedStateViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Provider
 
 class MyViewModel @Inject constructor(private val fetchQuestionsUseCase: FetchQuestionsUseCase,
-private val fetchQuestionsDetailsUseCase: FetchQuestionsDetailsUseCase,
-private val savedStateHandle: SavedStateHandle) : ViewModel() {
+private val fetchQuestionsDetailsUseCase: FetchQuestionsDetailsUseCase) : SavedStateViewModel() {
 
-    private val _questions : MutableLiveData<List<Question>> = savedStateHandle.getLiveData("questions")
-    val questions : LiveData<List<Question>> = _questions
-    init {
+    private lateinit var _questions : MutableLiveData<List<Question>>
+    val questions : LiveData<List<Question>> get()  = _questions
+
+    override fun init(savedStateHandle: SavedStateHandle) {
+        _questions = savedStateHandle.getLiveData("questions")
         viewModelScope.launch {
             val r = fetchQuestionsUseCase.fetchQuestions()
             if(r is FetchQuestionsUseCase.Result.Success){

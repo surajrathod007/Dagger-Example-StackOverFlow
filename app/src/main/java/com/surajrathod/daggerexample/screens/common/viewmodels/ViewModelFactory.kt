@@ -12,10 +12,10 @@ import com.surajrathod.daggerexample.screens.viewmodel.MyViewModel2
 import java.lang.RuntimeException
 import javax.inject.Inject
 import javax.inject.Provider
+import kotlin.reflect.KClass
 
 class ViewModelFactory @Inject constructor(
-    private val fetchQuestionsDetailsUseCaseProvider: Provider<FetchQuestionsDetailsUseCase>,
-    private val fetchQuestionsUseCaseProvider: Provider<FetchQuestionsUseCase>,
+    private val providers: Map<Class<out ViewModel>, @JvmSuppressWildcards Provider<ViewModel>>,
     savedStateRegistryOwner: SavedStateRegistryOwner
 ) :
     AbstractSavedStateViewModelFactory(savedStateRegistryOwner, null) {
@@ -25,18 +25,10 @@ class ViewModelFactory @Inject constructor(
         modelClass: Class<T>,
         handle: SavedStateHandle
     ): T {
-        return when (modelClass) {
-            MyViewModel::class.java -> MyViewModel(
-                fetchQuestionsUseCaseProvider.get(),
-                fetchQuestionsDetailsUseCaseProvider.get(),
-                handle
-            ) as T
-
-            MyViewModel2::class.java -> MyViewModel2(
-                fetchQuestionsUseCaseProvider.get()
-            ) as T
-
-            else -> throw RuntimeException("Unsupported viewmodel $modelClass")
+        val viewModel = providers[modelClass]?.get() ?: throw RuntimeException("Unsupport viewmodel $modelClass")
+        if(viewModel is SavedStateViewModel){
+            viewModel.init(handle)
         }
+        return viewModel as T
     }
 }
